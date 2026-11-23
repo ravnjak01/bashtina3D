@@ -1,10 +1,11 @@
-﻿using Bastina3D.Domain.Entities;
+﻿using Bastina3D.Application.Abstractions;
+using Bastina3D.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
 namespace Bastina3D.Infrastructure.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options),IAppDbContext
 {
     public DbSet<HeritageSite> Sites => Set<HeritageSite>();
     public DbSet<SiteModel3D> Models => Set<SiteModel3D>();
