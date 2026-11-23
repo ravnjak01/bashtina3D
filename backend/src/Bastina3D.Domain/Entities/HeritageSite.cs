@@ -1,9 +1,5 @@
 ﻿using Bastina3D.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-
+using NetTopologySuite.Geometries;
 namespace Bastina3D.Domain.Entities
 {
     public class HeritageSite
