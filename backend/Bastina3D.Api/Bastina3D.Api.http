@@ -1,0 +1,6 @@
+@Bastina3D.Api_HostAddress = http://localhost:5055
+
+GET {{Bastina3D.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
