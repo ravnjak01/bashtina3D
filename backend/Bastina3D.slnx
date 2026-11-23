@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Bastina3D.Api/Bastina3D.Api.csproj" />
+    <Project Path="src/Bastina3D.Application/Bastina3D.Application.csproj" />
+    <Project Path="src/Bastina3D.Domain/Bastina3D.Domain.csproj" />
+    <Project Path="src/Bastina3D.Infrastructure/Bastina3D.Infrastructure.csproj" />
+  </Folder>
+</Solution>
