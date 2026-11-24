@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bastina3D.Application\Bastina3D.Application.csproj" />
-    <ProjectReference Include="..\Bastina3D.Domain\Bastina3D.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

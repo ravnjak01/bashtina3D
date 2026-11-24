@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Bastina3D.Infrastructure\Bastina3D.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

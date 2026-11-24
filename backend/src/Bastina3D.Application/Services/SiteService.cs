@@ -62,10 +62,10 @@ public class SiteService(IAppDbContext db) : ISiteService
     }
 
     public Task<SiteDetailDto?> GetByIdAsync(Guid id, CancellationToken ct) =>
-        QueryDetail().Where(s => s.Id == id).FirstOrDefaultAsync(ct);
+        ProjectDetail(db.Sites.AsNoTracking()).Where(s => s.Id == id).FirstOrDefaultAsync(ct);
 
     public Task<SiteDetailDto?> GetBySlugAsync(string slug, CancellationToken ct) =>
-        QueryDetail().Where(s => s.Slug == slug).FirstOrDefaultAsync(ct);
+        ProjectDetail(db.Sites.AsNoTracking()).Where(s => s.Slug == slug).FirstOrDefaultAsync(ct);
 
     public async Task<SiteDetailDto> CreateAsync(CreateSiteRequest r, CancellationToken ct)
     {
@@ -120,11 +120,14 @@ public class SiteService(IAppDbContext db) : ISiteService
             && double.TryParse(p[3], CultureInfo.InvariantCulture, out maxLat);
     }
 
-    private IQueryable<SiteDetailDto> QueryDetail() => db.Sites.AsNoTracking().Select(s => new SiteDetailDto(
-        s.Id, s.Name, s.NameLocal, s.Slug, s.Description, s.Category, s.Period, s.YearBuilt, s.Municipality,
-        s.IsNationalMonument, s.Location.X, s.Location.Y, s.ElevationM, s.WikidataId, s.HeroImageUrl,
-        s.Model == null ? null : new ModelDto(s.Model.Url, s.Model.Scale, s.Model.HeadingDeg, s.Model.AltitudeOffsetM, s.Model.FileSizeBytes),
-        s.Media.Select(m => new MediaDto(m.Url, m.Caption, m.Attribution, m.License)).ToList()));
+   
+
+    private static IQueryable<SiteDetailDto> ProjectDetail(IQueryable<HeritageSite> query) =>
+        query.Select(s => new SiteDetailDto(
+            s.Id, s.Name, s.NameLocal, s.Slug, s.Description, s.Category, s.Period, s.YearBuilt, s.Municipality,
+            s.IsNationalMonument, s.Location.X, s.Location.Y, s.ElevationM, s.WikidataId, s.HeroImageUrl,
+            s.Model == null ? null : new ModelDto(s.Model.Url, s.Model.Scale, s.Model.HeadingDeg, s.Model.AltitudeOffsetM, s.Model.FileSizeBytes),
+            s.Media.Select(m => new MediaDto(m.Url, m.Caption, m.Attribution, m.License)).ToList()));
 
     private async Task<string> UniqueSlugAsync(string name, CancellationToken ct)
     {
