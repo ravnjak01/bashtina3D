@@ -62,10 +62,10 @@ public class SiteService(IAppDbContext db) : ISiteService
     }
 
     public Task<SiteDetailDto?> GetByIdAsync(Guid id, CancellationToken ct) =>
-        ProjectDetail(db.Sites.AsNoTracking()).Where(s => s.Id == id).FirstOrDefaultAsync(ct);
+        ProjectDetail(db.Sites.AsNoTracking().Where(s => s.Id == id)).FirstOrDefaultAsync(ct);
 
     public Task<SiteDetailDto?> GetBySlugAsync(string slug, CancellationToken ct) =>
-        ProjectDetail(db.Sites.AsNoTracking()).Where(s => s.Slug == slug).FirstOrDefaultAsync(ct);
+        ProjectDetail(db.Sites.AsNoTracking().Where(s => s.Slug == slug)).FirstOrDefaultAsync(ct);
 
     public async Task<SiteDetailDto> CreateAsync(CreateSiteRequest r, CancellationToken ct)
     {
