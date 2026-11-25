@@ -1,5 +1,6 @@
 ﻿// Application/Services/SiteService.cs
 using Bastina3D.Application.Abstractions;
+using Bastina3D.Application.Common;
 using Bastina3D.Application.DTOs;
 using Bastina3D.Application.Interfaces;
 using Bastina3D.Domain.Entities;
@@ -131,19 +132,11 @@ public class SiteService(IAppDbContext db) : ISiteService
 
     private async Task<string> UniqueSlugAsync(string name, CancellationToken ct)
     {
-        var baseSlug = Slugify(name);
+        var baseSlug = SlugGenerator.Slugify(name);
         var slug = baseSlug;
         for (var i = 2; await db.Sites.AnyAsync(s => s.Slug == slug, ct); i++) slug = $"{baseSlug}-{i}";
         return slug;
     }
 
-    private static string Slugify(string s)
-    {
-        var normalized = s.Normalize(NormalizationForm.FormD);
-        var sb = new StringBuilder();
-        foreach (var c in normalized)
-            if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark) sb.Append(c);
-        var ascii = sb.ToString().ToLowerInvariant().Replace("đ", "dj");
-        return Regex.Replace(ascii, "[^a-z0-9]+", "-").Trim('-');
-    }
+  
 }
