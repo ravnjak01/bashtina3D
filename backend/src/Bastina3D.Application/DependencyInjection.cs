@@ -14,6 +14,7 @@ namespace Bastina3D.Application
         {
             services.AddScoped<ISiteService, SiteService>();
             services.AddScoped<IHeritageImporter, OsmImporter>();
+            services.AddScoped<IWikidataEnricher, WikidataEnricher>();
 
             return services;
         }

@@ -35,6 +35,13 @@ public static class DependencyInjection
             c.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             // Overpass asks for an identifying UA
         });
+
+        services.AddHttpClient<IWikiClient, WikiClient>(c =>
+        {
+            c.Timeout = TimeSpan.FromSeconds(30);
+            c.DefaultRequestHeaders.UserAgent.ParseAdd("Bastina3D/0.1 (contact: ravnjak01@gmail.com)"); // Wikimedia requires a real UA
+        });
+
         return services;
     }
 
