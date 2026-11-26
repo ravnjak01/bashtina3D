@@ -3,8 +3,8 @@ using Bastina3D.Application.Abstractions;
 using Bastina3D.Application.Common;
 using Bastina3D.Application.DTOs;
 using Bastina3D.Application.Interfaces;
+using Bastina3D.Common.Domain;
 using Bastina3D.Domain.Entities;
-using Bastina3D.Infrastructure;
 using Microsoft.EntityFrameworkCore;    // AsNoTracking, ToListAsync, FirstOrDefaultAsync, AnyAsync
 using NetTopologySuite.Features;
 using System.Globalization;

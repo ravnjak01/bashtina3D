@@ -4,8 +4,9 @@ using Bastina3D.Application.Common;
 using Bastina3D.Application.Interfaces;
 using Bastina3D.Domain.Entities;
 using Bastina3D.Domain.Enums;
-using Bastina3D.Infrastructure;
+using Bastina3D.Domain;
 using Microsoft.EntityFrameworkCore;
+using Bastina3D.Common.Domain;
 
 namespace Bastina3D.Application.Import;
 

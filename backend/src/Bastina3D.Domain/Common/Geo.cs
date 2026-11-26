@@ -1,7 +1,7 @@
 ﻿using NetTopologySuite;
 using NetTopologySuite.Geometries;
 
-namespace Bastina3D.Infrastructure;
+namespace Bastina3D.Common.Domain;
 
 public static class Geo
 {

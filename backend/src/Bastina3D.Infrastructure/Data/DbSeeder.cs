@@ -1,4 +1,5 @@
 ﻿// Data/DbSeeder.cs
+using Bastina3D.Common.Domain;
 using Bastina3D.Domain.Entities;
 using Bastina3D.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
