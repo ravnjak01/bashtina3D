@@ -1,6 +1,8 @@
 ﻿// Infrastructure/DependencyInjection.cs
 using Bastina3D.Application.Abstractions;
+using Bastina3D.Application.Interfaces;
 using Bastina3D.Infrastructure.Data;
+using Bastina3D.Infrastructure.Import;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +24,17 @@ public static class DependencyInjection
             }
         });
 
+
         services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
+
+        services.AddHttpClient<IOverpassClient, OverpassClient>(c =>
+        {
+            c.BaseAddress = new Uri("https://overpass.private.coffee/api/");
+            c.Timeout = TimeSpan.FromMinutes(3);
+            c.DefaultRequestHeaders.UserAgent.ParseAdd("Bastina3D/0.1 (contact: ravnjak01@gmail.com)");
+            c.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+            // Overpass asks for an identifying UA
+        });
         return services;
     }
 

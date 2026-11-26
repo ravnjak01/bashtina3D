@@ -1,4 +1,5 @@
-﻿using Bastina3D.Application.Interfaces;
+﻿using Bastina3D.Application.Import;
+using Bastina3D.Application.Interfaces;
 using Bastina3D.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -12,6 +13,8 @@ namespace Bastina3D.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<ISiteService, SiteService>();
+            services.AddScoped<IHeritageImporter, OsmImporter>();
+
             return services;
         }
     }
