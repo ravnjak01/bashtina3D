@@ -40,6 +40,8 @@ public class WikidataEnricher(IAppDbContext db, IWikiClient wiki, ILogger<Wikida
                             ?? (e.BsWikiTitle != null ? await wiki.GetSummaryAsync("bs", e.BsWikiTitle, ct) : null);
                     if (!string.IsNullOrWhiteSpace(text)) { site.Description = text; described++; }
                 }
+                site.Rank = RankCalculator.Compute(site);
+
 
                 if (site.HeroImageUrl is null && e.ImageFile != null)
                 {
@@ -56,6 +58,8 @@ public class WikidataEnricher(IAppDbContext db, IWikiClient wiki, ILogger<Wikida
                     });
                     imaged++;
                 }
+
+                site.Rank = RankCalculator.Compute(site);
                 site.UpdatedAtUtc = DateTime.UtcNow;
             }
           try
