@@ -27,8 +27,10 @@ public class SiteService(IAppDbContext db) : ISiteService
                 s.YearBuilt,
                 s.IsNationalMonument,
                 s.HeroImageUrl,
+                s.Rank,
                 HasModel = s.Model != null,
                 s.Location
+
             })
             .ToListAsync(ct);
 
@@ -44,7 +46,8 @@ public class SiteService(IAppDbContext db) : ISiteService
                 { "yearBuilt", r.YearBuilt },
                 { "isNationalMonument", r.IsNationalMonument },
                 { "hasModel", r.HasModel },
-                { "heroImageUrl", r.HeroImageUrl }
+                { "heroImageUrl", r.HeroImageUrl },
+                                { "rank", r.Rank }
             }));
         }
         return fc;

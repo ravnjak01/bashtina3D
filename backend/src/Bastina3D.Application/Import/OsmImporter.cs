@@ -94,6 +94,7 @@ public partial class OsmImporter(IAppDbContext db, IOverpassClient overpass) : I
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow
                 };
+                site.Rank = RankCalculator.Compute(site);
 
                 db.Sites.Add(site);
                 byOsm[(el.Type, el.Id)] = site;
@@ -112,6 +113,7 @@ public partial class OsmImporter(IAppDbContext db, IOverpassClient overpass) : I
                 site.YearBuilt ??= year;
                 site.Period ??= OsmTagMapper.PeriodFromYear(site.YearBuilt);
                 site.Municipality ??= municipality;
+                site.Rank = RankCalculator.Compute(site);
 
                 if (site.Category == SiteCategory.Other && mappedCategory != SiteCategory.Other)
                     site.Category = mappedCategory;

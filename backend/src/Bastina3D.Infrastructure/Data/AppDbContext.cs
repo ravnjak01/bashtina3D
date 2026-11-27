@@ -40,6 +40,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .WithOne()
                 .HasForeignKey(m => m.SiteId)
                 .OnDelete(DeleteBehavior.Cascade);
+            e.HasIndex(x => x.Rank);
         });
 
         modelBuilder.Entity<SiteModel3D>(e =>

@@ -77,6 +77,9 @@ namespace Bastina3D.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("Rank")
+                        .HasColumnType("int");
+
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -95,6 +98,8 @@ namespace Bastina3D.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Category");
+
+                    b.HasIndex("Rank");
 
                     b.HasIndex("Slug")
                         .IsUnique();

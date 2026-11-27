@@ -29,5 +29,7 @@ namespace Bastina3D.Domain.Entities
 
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAtUtc { get; set; } = DateTime.UtcNow;
+
+        public int Rank { get; set; }
     }
 }

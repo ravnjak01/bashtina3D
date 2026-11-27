@@ -1,7 +1,10 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿using Bastina3D.Application.Abstractions;
+using Bastina3D.Application.Import;
 using Bastina3D.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Bastina3D.Api.Controllers;
 
@@ -39,5 +42,17 @@ public class AdminController(IHeritageImporter importer, IConfiguration config,I
 
         return keyBytes.Length == expectedBytes.Length &&
                CryptographicOperations.FixedTimeEquals(keyBytes, expectedBytes);
+    }
+
+    // AdminController
+    [HttpPost("recompute-rank")]
+    public async Task<IActionResult> RecomputeRank([FromHeader(Name = "X-Api-Key")] string? key,
+        [FromServices] IAppDbContext db, CancellationToken ct)
+    {
+        if (!Authorized(key)) return Unauthorized();
+        var sites = await db.Sites.Include(s => s.Model).ToListAsync(ct);
+        foreach (var s in sites) s.Rank = RankCalculator.Compute(s);
+        await db.SaveChangesAsync(ct);
+        return Ok(new { updated = sites.Count });
     }
 }
